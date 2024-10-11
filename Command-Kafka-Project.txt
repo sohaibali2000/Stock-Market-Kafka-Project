@@ -1,0 +1,71 @@
+Downloading Kafka on EC2
+
+wget https://archive.apache.org/dist/kafka/3.3.1/kafka_2.12-3.3.1.tgz
+
+Uncompressing the File
+
+tar -xvf kafka_2.12-3.3.1.tgz
+
+Installing Java Machine on EC2 Instance
+
+1. Try to install Java directly using yum: Use the following command to search for available Java packages:
+
+sudo yum search java | grep jdk
+
+2. Install the found package: If the search finds a suitable version of OpenJDK, install it:
+
+sudo yum install java-11-openjdk
+
+3. If yum doesn't have the right packages: If no suitable package is available, you can manually install OpenJDK:
+
+a. Download the OpenJDK binary from the AdoptOpenJDK website:
+wget https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u352b08.tar.gz
+
+b.  Extract the archive:
+tar -xvzf OpenJDK8U-jdk_x64_linux_hotspot_8u352b08.tar.gz
+
+c. Move it to /usr/local or another appropriate directory:
+
+sudo mv jdk8u352-b08 /usr/local/
+
+d. Set environment variables to use this version of Java:
+
+export JAVA_HOME=/usr/local/jdk8u352-b08
+export PATH=$JAVA_HOME/bin:$PATH
+
+e. Verify the installation:
+
+java -version
+
+
+
+Starting Zoo Keeper ( Resource Management ) 
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+assign the memory of kafka
+export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
+
+cd kafka_2.12-3.3.1
+
+start kafka
+bin/kafka-server-start.sh config/server.properties
+
+
+Create the topic:
+-----------------------------
+Duplicate the session & enter in a new console --
+cd kafka_2.12-3.3.1
+bin/kafka-topics.sh --create --topic demo_test --bootstrap-server 18.118.115.48 --replication-factor 1 --partitions 1
+
+bin/kafka-topics.sh --create --topic demo_test --bootstrap-server 18.118.115.48:9092 --replication-factor 1 --partitions 1
+
+Start Producer:
+--------------------------
+bin/kafka-console-producer.sh --topic demo_test --bootstrap-server 18.118.115.48:9092
+
+Start Consumer:
+-------------------------
+Duplicate the session & enter in a new console --
+cd kafka_2.12-3.3.1
+bin/kafka-console-consumer.sh --topic demo_test --bootstrap-server 18.118.115.48:9092
+
