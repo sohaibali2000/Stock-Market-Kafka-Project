@@ -8,14 +8,15 @@ Architecture of the Project:
 ![image](https://github.com/user-attachments/assets/67b08982-5e09-4179-80ae-35c64fff25ab)
 
 Technology Used
-Programming Language - Python
 
-Amazon Web Service (AWS)
-S3 (Simple Storage Service)
-Athena
-Glue Crawler
-Glue Catalog
-EC2
+1. Programming Language - Python
 
-Apache Kafka
+2. Amazon Web Service (AWS)
+    S3 (Simple Storage Service)
+    Athena
+    Glue Crawler
+    Glue Catalog
+    EC2
+
+3. Apache Kafka
 
